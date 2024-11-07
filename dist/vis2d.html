@@ -68,7 +68,7 @@
             </div>
 
             <div id="wrapper_translation" class="">
-                <h1 class="text-title text-title-small">TRANSLATION</h1>
+                <h1 class="text-title text-title-small mb-6 mt-0">TRANSLATION</h1>
 
                 <div class="grid grid-cols-5 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
@@ -81,7 +81,7 @@
             </div>
 
             <div id="wrapper_dilatation" class="hidden">
-                <h1 class="text-title text-title-small">DILATATION</h1>
+                <h1 class="text-title text-title-small mb-6 mt-0">DILATATION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">K</h1>
@@ -90,7 +90,7 @@
             </div>
 
             <div id="wrapper_rotation" class="hidden">
-                <h1 class="text-title text-title-small">DILATATION</h1>
+                <h1 class="text-title text-title-small mb-6 mt-0">DILATATION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
@@ -102,7 +102,7 @@
             </div>
 
             <div id="wrapper_reflection" class="hidden">
-                <h1 class="text-title text-title-small">REFLECTION</h1>
+                <h1 class="text-title text-title-small mb-6 mt-0">REFLECTION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
                     <div class="flex flex-col items-center col-span-1">
@@ -193,6 +193,36 @@
             window.history.back();
         });
     });
+
+    // Points add and remove functionality
+    document.getElementById('point_add_btn').addEventListener('click', addPoint);
+    document.getElementById('point_remove_btn').addEventListener('click', removePoint);
+
+    let pointCount = 3; // Initial points count (to prevent removing all points)
+
+    function addPoint() {
+        pointCount++;
+        const pointDiv = document.createElement('div');
+        pointDiv.id = `point_${String.fromCharCode(97 + pointCount - 1)}`;
+        pointDiv.className = 'grid grid-cols-5 gap-4 w-full items-center';
+
+        pointDiv.innerHTML = `
+        <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">${String.fromCharCode(65 + pointCount - 1)}</h1>
+        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_x" type="number" class="input col-span-2" placeholder="x" value="0">
+        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_y" type="number" class="input col-span-2" placeholder="y" value="0">
+    `;
+
+        const buttonsDiv = document.querySelector('.grid.grid-cols-2.gap-4.items-center');
+        buttonsDiv.parentNode.insertBefore(pointDiv, buttonsDiv);
+    }
+
+    function removePoint() {
+        if (pointCount > 3) {
+            const pointDiv = document.getElementById(`point_${String.fromCharCode(97 + pointCount - 1)}`);
+            pointDiv.parentNode.removeChild(pointDiv);
+            pointCount--;
+        }
+    }
 </script>
 </body>
 </html>

@@ -15,34 +15,34 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 m-6 rounded-lg w-full lg:w-auto">
 
         <div class="p-6 mb-8 lg:mb-0 rounded flex flex-col items-center justify-center text-center">
-            <h1 class="text-title">
+            <h1 class="text-title mb-8">
                 GEOVIZ
             </h1>
 
-            <p class="text-2xl font-body text-violet-600 drop-shadow-lg">A Geometric Transformation Learning Web App</p>
+            <p class="text-2xl font-body text-violet-600 drop-shadow-lg">Aplikasi Web Pembelajaran Transformasi Geometri</p>
         </div>
 
         <div class="flex-1 lg:flex-none lg:basis-2/5 flex flex-col space-y-4">
             <div class="p-4 pt-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
                 <div class="float-title float-title-top">
-                    Material
+                    Materi
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 w-full">
-                    <button id="transformation_button" class="btn">TRANSFORMATION</button>
-                    <button id="dilatation_button" class="btn">DILATATION</button>
-                    <button id="rotation_button" class="btn">ROTATION</button>
-                    <button id="reflection_button" class="btn">REFLECTION</button>
+                    <button id="transformation_button" class="btn">TRANSLASI</button>
+                    <button id="dilatation_button" class="btn">DILATASI</button>
+                    <button id="rotation_button" class="btn">ROTASI</button>
+                    <button id="reflection_button" class="btn">REFLEKSI</button>
                 </div>
             </div>
 
             <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
                 <div class="grid grid-cols-2 gap-4 w-full">
-                    <button id="exercise_1_button" class="btn">TYPE 1</button>
-                    <button id="exercise_2_button" class="btn">TYPE 2</button>
+                    <button id="exercise_1_button" class="btn">LATIHAN 1</button>
+                    <button id="exercise_2_button" class="btn">LATIHAN 2</button>
 
                     <div class="float-title float-title-bottom">
-                        Exerecise
+                        Latihan
                     </div>
                 </div>
             </div>
@@ -53,19 +53,19 @@
 <script>
     // Buttons event listeners
     document.getElementById('transformation_button').addEventListener('click', function () {
-        window.location.href = 'material.html?type=translation';
+        window.location.href = 'material.html?type=translasi';
     });
 
     document.getElementById('dilatation_button').addEventListener('click', function () {
-        window.location.href = 'material.html?type=dilatation';
+        window.location.href = 'material.html?type=dilatasi';
     });
 
     document.getElementById('rotation_button').addEventListener('click', function () {
-        window.location.href = 'material.html?type=rotation';
+        window.location.href = 'material.html?type=rotasi';
     });
 
     document.getElementById('reflection_button').addEventListener('click', function () {
-        window.location.href = 'material.html?type=reflection';
+        window.location.href = 'material.html?type=refleksi';
     });
 </script>
 </body>
