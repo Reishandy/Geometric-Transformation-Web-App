@@ -5,13 +5,51 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Geometric Transformation Learning Web App</title>
+    <title>GEOVIZ</title>
 
     <link rel="stylesheet" href="output.css">
 </head>
 <body>
-    <h1 class="text-3xl font-bold underline bg-blue-500 px-10 items-center">
-        Hello world!
-    </h1>
+
+<div class="flex items-center justify-center min-h-screen">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 m-6 rounded-lg w-full lg:w-auto">
+
+        <div class="p-6 mb-8 lg:mb-0 rounded flex flex-col items-center justify-center text-center">
+            <h1 class="text-8xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text
+         text-transparent filter drop-shadow-lg">
+                GEOVIZ
+            </h1>
+
+            <p class="text-2xl font-body text-violet-600 drop-shadow-lg">A Geometric Transformation Learning Web App</p>
+        </div>
+
+        <div class="flex-1 lg:flex-none lg:basis-2/5 flex flex-col space-y-4">
+            <div class="p-4 pt-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
+                <div class="float-title float-title-top">
+                    Material
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 w-full">
+                    <button type="button" class="btn">TRANSFORMATION</button>
+                    <button class="btn">DILATATION</button>
+                    <button class="btn">ROTATION</button>
+                    <button class="btn">REFLECTION</button>
+                </div>
+            </div>
+
+            <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
+                <div class="grid grid-cols-2 gap-4 w-full">
+                    <button class="btn">TYPE 1</button>
+                    <button class="btn">TYPE 2</button>
+
+                    <div class="float-title float-title-bottom">
+                        Exerecise
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
