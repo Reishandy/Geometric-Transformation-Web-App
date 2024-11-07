@@ -12,7 +12,7 @@
 <body>
 
 <header class="flex items-center justify-between p-4 border-b-4 border-violet-600">
-    <button class="btn">Back</button>
+    <button class="btn back_button">Back</button>
     <h1 class="text-4xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text text-transparent">
         GEOVIZ
     </h1>
@@ -23,52 +23,68 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 m-6 rounded-lg w-full lg:w-auto">
 
         <div class="p-6 rounded flex flex-col items-center justify-center text-center">
-            <h1 class="text-title">
-                LOREM
+            <h1 id="material_title" class="text-title text-title-medium">
+                Not Found
             </h1>
 
-            <p class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec dolor massa. Praesent vitae
-                ultricies
-                tellus, id posuere ligula. Proin maximus, felis ac ultricies porttitor, erat libero vehicula turpis, eu
-                auctor lacus nunc eu nisl. Suspendisse magna neque, sagittis nec tortor eget, lacinia sollicitudin
-                metus.
-                Nulla facilisi. Integer dictum massa et lectus egestas, rhoncus molestie enim cursus. Proin quis lacinia
-                mi.
-                Mauris pellentesque nunc non nunc venenatis, a feugiat felis tincidunt.
+            <p id="material_description" class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
+                The material you are looking for is not found.
             </p>
         </div>
 
         <div class="flex-1 lg:flex-none lg:basis-2/5 flex flex-col space-y-8">
             <div class="p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
-                <p class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec dolor massa. Praesent vitae
-                    ultricies
-                    tellus, id p
+                <p id="material_formula" class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
+                    Formula: A = B + C
                 </p>
             </div>
 
             <div class="px-6 pb-4">
-                <p class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec dolor massa. Praesent vitae
-                    ultricies
-                    tellus, id p
+                <p id="material_exmaple" class="text-xl font-body text-violet-600 drop-shadow-lg text-justify">
+                    Example: A = 2 + 3
                 </p>
             </div>
 
-            <div class="p-4 pt-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
-                <div class="float-title float-title-top">
-                    Visualizations
-                </div>
+            <button id="visual_button" class="btn w-full">Visualization</button>
 
-                <div class="grid grid-cols-2 gap-4 w-full">
-                    <button class="btn">Visual 2D</button>
-                    <button class="btn">Visual 3D</button>
-                </div>
-            </div>
+<!--            <div class="p-4 pt-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">-->
+<!--                <div class="float-title float-title-top">-->
+<!--                    Visualizations-->
+<!--                </div>-->
+<!--                <div class="grid grid-cols-2 gap-4 w-full">-->
+<!--                    <button class="btn">Visual 2D</button>-->
+<!--                    <button class="btn">Visual 3D</button>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
 
+<script>
+    // Buttons event listeners
+    document.querySelectorAll('.back_button').forEach(button => {
+        button.addEventListener('click', () => {
+            window.history.back();
+        });
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+
+    document.getElementById('visual_button').addEventListener('click', function () {
+        window.location.href = 'vis2d.html?type=' + type;
+    });
+
+    // Load material json
+    fetch('assets/material.json')
+        .then(response => response.json())
+        .then(data => {
+            // Change material page content
+            document.getElementById('material_title').innerText = type.toUpperCase();
+            document.getElementById('material_description').innerText = data[type].description;
+            document.getElementById('material_formula').innerText = data[type].formula;
+            document.getElementById('material_exmaple').innerText = data[type].example;
+        });
+</script>
 </body>
 </html>

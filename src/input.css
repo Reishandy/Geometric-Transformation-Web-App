@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 .text-title {
-    @apply mb-8 text-6xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text
+    @apply mb-8 text-8xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text
     text-transparent filter drop-shadow-lg;
+}
+
+.text-title-medium {
+    @apply text-5xl text-center mb-6 mt-0;
 }
 
 .text-title-small {

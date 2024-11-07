@@ -12,7 +12,7 @@
 <body>
 
 <header class="flex items-center justify-between p-4 border-b-4 border-violet-600">
-    <button class="btn">Back</button>
+    <button class="btn back_button">Back</button>
     <h1 class="text-4xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text text-transparent">
         GEOVIZ
     </h1>
@@ -23,19 +23,19 @@
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 m-6 rounded-lg w-full space-y-4 lg:space-y-0">
         <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
             <div class="flex flex-col items-center justify-center space-y-4">
-                <div id="point_a_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_a" class="grid grid-cols-5 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">A</h1>
                     <input id="point_a_x" type="number" class="input col-span-2" placeholder="x" value="1">
                     <input id="point_a_y" type="number" class="input col-span-2" placeholder="y" value="1">
                 </div>
 
-                <div id="point_b_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_b" class="grid grid-cols-5 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">B</h1>
                     <input id="point_b_x" type="number" class="input col-span-2" placeholder="x" value="3">
                     <input id="point_b_y" type="number" class="input col-span-2" placeholder="y" value="1">
                 </div>
 
-                <div id="point_c_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_c" class="grid grid-cols-5 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">C</h1>
                     <input id="point_c_x" type="number" class="input col-span-2" placeholder="x" value="3">
                     <input id="point_c_y" type="number" class="input col-span-2" placeholder="y" value="3">
@@ -67,7 +67,7 @@
                 Transformation
             </div>
 
-            <div id="wrapper_translation_div" class="">
+            <div id="wrapper_translation" class="">
                 <h1 class="text-title text-title-small">TRANSLATION</h1>
 
                 <div class="grid grid-cols-5 gap-4 w-full items-center">
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div id="wrapper_dilatation_div" class="hidden">
+            <div id="wrapper_dilatation" class="hidden">
                 <h1 class="text-title text-title-small">DILATATION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div id="wrapper_rotation_div" class="hidden">
+            <div id="wrapper_rotation" class="hidden">
                 <h1 class="text-title text-title-small">DILATATION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div id="wrapper_reflection_div" class="hidden">
+            <div id="wrapper_reflection" class="hidden">
                 <h1 class="text-title text-title-small">REFLECTION</h1>
 
                 <div class="grid grid-cols-3 gap-4 w-full items-center">
@@ -186,5 +186,13 @@
     </div>
 </div>
 
+<script>
+    // Buttons event listeners
+    document.querySelectorAll('.back_button').forEach(button => {
+        button.addEventListener('click', () => {
+            window.history.back();
+        });
+    });
+</script>
 </body>
 </html>

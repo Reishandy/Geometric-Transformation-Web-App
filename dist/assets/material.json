@@ -1,0 +1,22 @@
+{
+  "translation": {
+    "description": "translation",
+    "formula": "translation",
+    "example": "translation"
+  },
+  "dilatation": {
+    "description": "dilatation",
+    "formula": "dilatation",
+    "example": "dilatation"
+  },
+  "rotation": {
+    "description": "rotation",
+    "formula": "rotation",
+    "example": "rotation"
+  },
+  "reflection": {
+    "description": "reflection",
+    "formula": "reflection",
+    "example": "reflection"
+  }
+}
