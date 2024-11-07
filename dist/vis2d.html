@@ -22,8 +22,29 @@
 <div class="flex items-center justify-center min-h-screen">
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 m-6 rounded-lg w-full space-y-4 lg:space-y-0">
         <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
-            <div>
+            <div class="flex flex-col items-center justify-center space-y-4">
+                <div id="point_a_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">A</h1>
+                    <input id="point_a_x" type="number" class="input col-span-2" placeholder="x" value="1">
+                    <input id="point_a_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                </div>
 
+                <div id="point_b_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">B</h1>
+                    <input id="point_b_x" type="number" class="input col-span-2" placeholder="x" value="3">
+                    <input id="point_b_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                </div>
+
+                <div id="point_c_div" class="grid grid-cols-5 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">C</h1>
+                    <input id="point_c_x" type="number" class="input col-span-2" placeholder="x" value="3">
+                    <input id="point_c_y" type="number" class="input col-span-2" placeholder="y" value="3">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 items-center">
+                    <button id="point_add_btn" class="btn btn-control">+</button>
+                    <button id="point_remove_btn" class="btn btn-control">-</button>
+                </div>
             </div>
 
             <div class="float-title float-title-bottom">
@@ -35,19 +56,131 @@
             <button class="btn w-full">Plot</button>
 
             <div class="m-8">
-            b
+                THE PLOT AREA
             </div>
 
             <button class="btn w-full">Animate</button>
         </div>
 
-        <div class="p-4 pt-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
+        <div class="p-4 pt-8 rounded-3xl flex flex-col items-center justify-center border-4 border-violet-600 relative">
             <div class="float-title float-title-top">
                 Transformation
             </div>
 
-            <div>
+            <div id="wrapper_translation_div" class="">
+                <h1 class="text-title text-title-small">TRANSLATION</h1>
 
+                <div class="grid grid-cols-5 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
+                        Value</h1>
+                    <input id="value_translation_x" type="number" class="input col col-span-2" placeholder="x"
+                           value="3">
+                    <input id="value_translation_y" type="number" class="input col col-span-2" placeholder="y"
+                           value="3">
+                </div>
+            </div>
+
+            <div id="wrapper_dilatation_div" class="hidden">
+                <h1 class="text-title text-title-small">DILATATION</h1>
+
+                <div class="grid grid-cols-3 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">K</h1>
+                    <input id="value_dilatation_k" type="number" class="input col col-span-2" placeholder="k" value="2">
+                </div>
+            </div>
+
+            <div id="wrapper_rotation_div" class="hidden">
+                <h1 class="text-title text-title-small">DILATATION</h1>
+
+                <div class="grid grid-cols-3 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
+                        Rotation
+                    </h1>
+                    <input id="value_rotation_degree" type="number" class="input col col-span-2" placeholder="degree"
+                           value="90">
+                </div>
+            </div>
+
+            <div id="wrapper_reflection_div" class="hidden">
+                <h1 class="text-title text-title-small">REFLECTION</h1>
+
+                <div class="grid grid-cols-3 gap-4 w-full items-center">
+                    <div class="flex flex-col items-center col-span-1">
+                        <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
+                            K
+                        </h1>
+                        <input id="value_reflection_k" type="number" class="input col col-span-2 w-full" placeholder="k"
+                               value="1">
+                    </div>
+
+                    <div class="p-4 flex items-center justify-center col-span-2">
+                        <ul class="w-48 text-sm font-body text-violet-600 border border-violet-600 rounded-lg">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_origin" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_origin" class="ml-2 text-sm font-body text-violet-600">
+                                        Origin
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full border-b border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_x_axis" type="radio" value="x-axis" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_x_axis" class="ml-2 text-sm font-body text-violet-600">
+                                        X Axis
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full border-b border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_y_axis" type="radio" value="y-axis" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_y_axis" class="ml-2 text-sm font-body text-violet-600">
+                                        Y Axis
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full border-b border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_line_y_x" type="radio" value="line-y-x" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_line_y_x" class="ml-2 text-sm font-body text-violet-600">
+                                        Line Y = X
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full border-b border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_line_y_neg_x" type="radio" value="line-y-neg-x" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_line_y_neg_x" class="ml-2 text-sm font-body text-violet-600">
+                                        Line Y = -X
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full border-b border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_line_y_k" type="radio" value="line-y-k" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_line_y_k" class="ml-2 text-sm font-body text-violet-600">
+                                        Line Y = K
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="w-full rounded-b-lg border-violet-600">
+                                <div class="flex items-center px-3 py-2">
+                                    <input id="radio_line_x_k" type="radio" value="line-x-k" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <label for="radio_line_x_k" class="ml-2 text-sm font-body text-violet-600">
+                                        Line X = K
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

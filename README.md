@@ -11,6 +11,7 @@ todo
 todo
 
 ## Development and Deployment
+npx tailwindcss -i ./src/input.css -o ./dist/assets/output.css --watch
 todo
 
 ### License
