@@ -570,10 +570,6 @@ video {
   margin: 1.5rem;
 }
 
-.m-8 {
-  margin: 2rem;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -781,6 +777,10 @@ video {
 
 .text-justify {
   text-align: justify;
+}
+
+.text-start {
+  text-align: start;
 }
 
 .font-body {
