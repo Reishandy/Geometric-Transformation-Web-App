@@ -49,7 +49,7 @@
             </div>
 
             <div class="float-title float-title-bottom">
-                Shape
+                Bangun
             </div>
         </div>
 
@@ -63,10 +63,10 @@
 
         <div class="p-4 pt-8 rounded-3xl flex flex-col items-center justify-center border-4 border-violet-600 relative">
             <div class="float-title float-title-top">
-                Transformation
+                Transformasi
             </div>
 
-            <div id="wrapper_translation" class="">
+            <div id="wrapper_translation" class="hidden">
                 <h1 class="text-title text-title-small mb-6 mt-0">TRANSLASI</h1>
 
                 <div class="grid grid-cols-5 gap-4 w-full items-center">
@@ -221,6 +221,21 @@
             pointDiv.parentNode.removeChild(pointDiv);
             pointCount--;
         }
+    }
+
+    // Transformation div hidden functionality
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+
+    const transformationDivs = {
+        'translasi': 'wrapper_translation',
+        'dilatasi': 'wrapper_dilatation',
+        'rotasi': 'wrapper_rotation',
+        'refleksi': 'wrapper_reflection'
+    };
+
+    if (transformationDivs[type]) {
+        document.getElementById(transformationDivs[type]).classList.remove('hidden');
     }
 
     // Plot functionality
