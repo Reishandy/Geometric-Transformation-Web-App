@@ -8,6 +8,7 @@
     <title>2D Visualization</title>
 
     <link rel="stylesheet" href="assets/output.css">
+    <script src="assets/plotly-2.35.2.min.js" charset="UTF-8"></script>
 </head>
 <body>
 
@@ -55,9 +56,7 @@
         <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
             <button class="btn w-full">Plot</button>
 
-            <div class="m-8">
-                THE PLOT AREA
-            </div>
+            <div id="plot_area" class="w-full"></div>
 
             <button class="btn w-full">Animasi</button>
         </div>
@@ -223,6 +222,21 @@
             pointCount--;
         }
     }
+
+    // Plot functionality
+    plot_area = document.getElementById('plot_area');
+    Plotly.newPlot(plot_area, [{
+            x: [1, 2, 3, 4, 5],
+            y: [1, 2, 4, 8, 16]
+        }], {
+            margin: {t: 0, l: 30, r: 30, b: 30},
+            dragmode: 'pan',
+            xaxis: {dtick: 1},
+            yaxis: {dtick: 1, scaleanchor: 'x'}
+        },
+        {responsive: true}
+    );
+
 </script>
 </body>
 </html>
