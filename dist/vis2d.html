@@ -216,7 +216,7 @@
     }
 
     function removePoint() {
-        if (pointCount > 3) {
+        if (pointCount > 1) {
             const pointDiv = document.getElementById(`point_${String.fromCharCode(97 + pointCount - 1)}`);
             pointDiv.parentNode.removeChild(pointDiv);
             pointCount--;
