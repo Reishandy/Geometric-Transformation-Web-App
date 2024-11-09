@@ -107,13 +107,12 @@
             <div id="wrapper_translation" class="hidden">
                 <h1 class="text-title text-title-small mb-6 mt-0">TRANSLASI</h1>
 
-                <div class="grid grid-cols-5 gap-4 w-full items-center">
+                <div class="grid grid-cols-7 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
                         X , Y</h1>
-                    <input id="value_translation_x" type="number" class="input col col-span-2" placeholder="x"
-                           value="3">
-                    <input id="value_translation_y" type="number" class="input col col-span-2" placeholder="y"
-                           value="3">
+                    <input id="value_translation_x" type="number" class="input col col-span-2" placeholder="x" value="3">
+                    <input id="value_translation_y" type="number" class="input col col-span-2" placeholder="y" value="3">
+                    <input id="value_translation_z" type="number" class="input col col-span-2" placeholder="z" value="3">
                 </div>
             </div>
 
@@ -129,89 +128,79 @@
             <div id="wrapper_rotation" class="hidden">
                 <h1 class="text-title text-title-small mb-6 mt-0">ROTASI</h1>
 
-                <div class="grid grid-cols-3 gap-4 w-full items-center">
-                    <input id="value_rotation_degree" type="number" class="input col col-span-2" placeholder="degree"
-                           value="90">
-                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center col-span-1">
-                        Derajat
-                    </h1>
-                </div>
-            </div>
-
-            <div id="wrapper_reflection" class="hidden">
-                <h1 class="text-title text-title-small mb-6 mt-0">REFLEKSI</h1>
-
                 <div class="grid grid-cols-2 w-full items-center">
                     <div class="p-4 flex flex-col items-center">
                         <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center">
-                            K
+                            Derajat
                         </h1>
-                        <input id="value_reflection_k" type="number" class="input col w-full" placeholder="k"
-                               value="1">
+                        <input id="value_rotation_degree" type="number" class="input col w-full" placeholder="derajat"
+                               value="90">
                     </div>
 
                     <div class="p-4 flex items-center justify-center">
                         <ul class="w-48 text-sm font-body text-violet-600 border border-violet-600 rounded-lg">
                             <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_origin" type="radio" value="origin" name="axis-radio"
+                                    <input id="radio_x_axis" type="radio" value="origin" name="axis-radio"
                                            class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
-                                    <label for="radio_origin" class="ml-2 text-sm font-body text-violet-600">
-                                        Titik Pusat
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="w-full border-b border-violet-600">
-                                <div class="flex items-center px-3 py-2">
-                                    <input id="radio_x_axis" type="radio" value="x-axis" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
                                     <label for="radio_x_axis" class="ml-2 text-sm font-body text-violet-600">
                                         Sumbu X
                                     </label>
                                 </div>
                             </li>
-                            <li class="w-full border-b border-violet-600">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_y_axis" type="radio" value="y-axis" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
+                                    <input id="radio_y_axis" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
                                     <label for="radio_y_axis" class="ml-2 text-sm font-body text-violet-600">
                                         Sumbu Y
                                     </label>
                                 </div>
                             </li>
-                            <li class="w-full border-b border-violet-600">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_line_y_x" type="radio" value="line-y-x" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
-                                    <label for="radio_line_y_x" class="ml-2 text-sm font-body text-violet-600">
-                                        Garis Y = X
+                                    <input id="radio_z_axis" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
+                                    <label for="radio_z_axis" class="ml-2 text-sm font-body text-violet-600">
+                                        Sumbu Z
                                     </label>
                                 </div>
                             </li>
-                            <li class="w-full border-b border-violet-600">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wrapper_reflection" class="hidden">
+                <h1 class="text-title text-title-small mb-6 mt-0">REFLEKSI</h1>
+
+                <div class="w-full items-center">
+                    <div class="p-4 flex items-center justify-center">
+                        <ul class="w-48 text-sm font-body text-violet-600 border border-violet-600 rounded-lg">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_line_y_neg_x" type="radio" value="line-y-neg-x" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
-                                    <label for="radio_line_y_neg_x" class="ml-2 text-sm font-body text-violet-600">
-                                        Garis Y = -X
+                                    <input id="radio_xy_plane" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
+                                    <label for="radio_xy_plane" class="ml-2 text-sm font-body text-violet-600">
+                                        Bidang XY
                                     </label>
                                 </div>
                             </li>
-                            <li class="w-full border-b border-violet-600">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_line_y_k" type="radio" value="line-y-k" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
-                                    <label for="radio_line_y_k" class="ml-2 text-sm font-body text-violet-600">
-                                        Garis Y = K
+                                    <input id="radio_yz_plane" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
+                                    <label for="radio_yz_plane" class="ml-2 text-sm font-body text-violet-600">
+                                        Bidang YZ
                                     </label>
                                 </div>
                             </li>
-                            <li class="w-full rounded-b-lg border-violet-600">
+                            <li class="w-full border-b border-violet-600 rounded-t-lg">
                                 <div class="flex items-center px-3 py-2">
-                                    <input id="radio_line_x_k" type="radio" value="line-x-k" name="axis-radio"
-                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2">
-                                    <label for="radio_line_x_k" class="ml-2 text-sm font-body text-violet-600">
-                                        Garis X = K
+                                    <input id="radio_zx_plane" type="radio" value="origin" name="axis-radio"
+                                           class="w-4 h-4 text-violet-600 border-violet-600 focus:ring-violet-500 focus:ring-2" checked>
+                                    <label for="radio_zx_plane" class="ml-2 text-sm font-body text-violet-600">
+                                        Bidang ZX
                                     </label>
                                 </div>
                             </li>

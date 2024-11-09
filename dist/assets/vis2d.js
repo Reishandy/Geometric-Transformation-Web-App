@@ -37,6 +37,7 @@ const padding = 1;
 const { xRange, yRange } = calculateRange(originalPoints, [], padding);
 plotShape(originalPoints, plot_area, 'blue', false, xRange, yRange);
 
+// Button event listeners
 document.getElementById('plot_button').addEventListener('click', () => {
     // Recalculate transformed points
     originalPoints = getOriginalShapeCoordinates();
@@ -46,10 +47,6 @@ document.getElementById('plot_button').addEventListener('click', () => {
 });
 
 document.getElementById('animate_button').addEventListener('click', () => {
-    // Recalculate transformed points
-    originalPoints = getOriginalShapeCoordinates();
-    transformedPoints = calculateTransformedCoordinates(originalPoints, type);
-    
     animateTransformation(originalPoints, transformedPoints, plot_area);
 });
 

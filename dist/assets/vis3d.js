@@ -26,8 +26,29 @@ if (transformationDivs[type]) {
     document.getElementById(transformationDivs[type]).classList.remove('hidden');
 }
 
+// Plot and animation event listeners
+// Variables
+const plot_area = document.getElementById('plot_area');
+let originalPoints = getOriginalShapeCoordinates();
+let transformedPoints = calculateTransformedCoordinates(originalPoints, type);
+let originalMesh = generateMeshDataFromPoints(originalPoints)
+let transformedMesh = generateMeshDataFromPoints(transformedPoints)
 
+// Initial plot with initial range
+const padding = 1;
+const {xRange, yRange, zRange} = calculateRange(originalPoints, [], padding);
+plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
 
+// Button event listeners
+document.getElementById('plot_button').addEventListener('click', () => {
+    // Recalculate transformed points
+    originalPoints = getOriginalShapeCoordinates();
+    transformedPoints = calculateTransformedCoordinates(originalPoints, type);
+    originalMesh = generateMeshDataFromPoints(originalPoints)
+    transformedMesh = generateMeshDataFromPoints(transformedPoints)
+
+    plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
+});
 
 /*
     ========================
@@ -61,40 +82,94 @@ function removePoint() {
     }
 }
 
+// PLOTLY functions
+function getOriginalShapeCoordinates() {
+    const points = [];
+    for (let i = 0; i < pointCount; i++) {
+        const x = parseFloat(document.getElementById(`point_${String.fromCharCode(97 + i)}_x`).value);
+        const y = parseFloat(document.getElementById(`point_${String.fromCharCode(97 + i)}_y`).value);
+        const z = parseFloat(document.getElementById(`point_${String.fromCharCode(97 + i)}_z`).value);
+        points.push({x, y, z});
+    }
 
+    // Add the first point to the end of the array to close the shape
+    points.push(points[0]);
 
+    return points;
+}
 
+function calculateTransformedCoordinates(points, type) {
+    let k;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    switch (type) {
+        case 'translasi':
+            return points.map(point => ({
+                x: point.x + parseFloat(document.getElementById('value_translation_x').value),
+                y: point.y + parseFloat(document.getElementById('value_translation_y').value),
+                z: point.z + parseFloat(document.getElementById('value_translation_z').value)
+            }));
+        case 'dilatasi':
+            k = parseFloat(document.getElementById('value_dilatation_k').value);
+            return points.map(point => ({
+                x: point.x * k,
+                y: point.y * k,
+                z: point.z * k
+            }));
+        case 'rotasi':
+            const degree = parseFloat(document.getElementById('value_rotation_degree').value);
+            const radian = degree * (Math.PI / 180);
+            const axis = document.querySelector('input[name="axis-radio"]:checked').id;
+            return points.map(point => {
+                switch (axis) {
+                    case 'radio_x_axis':
+                        return {
+                            x: point.x,
+                            y: point.y * Math.cos(radian) - point.z * Math.sin(radian),
+                            z: point.y * Math.sin(radian) + point.z * Math.cos(radian)
+                        };
+                    case 'radio_y_axis':
+                        return {
+                            x: point.x * Math.cos(radian) + point.z * Math.sin(radian),
+                            y: point.y,
+                            z: -point.x * Math.sin(radian) + point.z * Math.cos(radian)
+                        };
+                    case 'radio_z_axis':
+                        return {
+                            x: point.x * Math.cos(radian) - point.y * Math.sin(radian),
+                            y: point.x * Math.sin(radian) + point.y * Math.cos(radian),
+                            z: point.z
+                        };
+                }
+            });
+        case 'refleksi':
+            const reflectionAxis = document.querySelector('input[name="axis-radio"]:checked').id;
+            return points.map(point => {
+                switch (reflectionAxis) {
+                    case 'radio_xy_plane':
+                        return {x: point.x, y: point.y, z: -point.z};
+                    case 'radio_yz_plane':
+                        return {x: -point.x, y: point.y, z: point.z};
+                    case 'radio_zx_plane':
+                        return {x: point.x, y: -point.y, z: point.z};
+                }
+            });
+    }
+}
 
 function generateMeshDataFromPoints(points) {
     // Separate x, y, z coordinates
-    const x = points.map(p => p[0]);
-    const y = points.map(p => p[1]);
-    const z = points.map(p => p[2]);
+    const x = points.map(p => p.x);
+    const y = points.map(p => p.y);
+    const z = points.map(p => p.z);
 
     // Simple edge/face generation: Convex hull calculation (this is basic and not robust for all shapes)
     // Here, we assume a set of basic edges based on convex hull assumption
     // Alternatively, you could use a 3D convex hull library like Quickhull for better results
-    let edges = [];
     let faces = [];
 
     for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
             for (let k = j + 1; k < points.length; k++) {
-                edges.push([i, j, k]);
                 faces.push([i, j, k]);
             }
         }
@@ -106,27 +181,148 @@ function generateMeshDataFromPoints(points) {
     const k = faces.map(f => f[2]);
 
     return {
-        type: 'mesh3d',
         x: x,
         y: y,
         z: z,
         i: i,
         j: j,
-        k: k,
+        k: k
+    };
+}
+
+function calculateRange(originalPoints, transformedPoints = [], padding) {
+    const xValues = originalPoints.map(point => point.x).concat(transformedPoints.map(point => point.x));
+    const yValues = originalPoints.map(point => point.y).concat(transformedPoints.map(point => point.y));
+    const zValues = originalPoints.map(point => point.z).concat(transformedPoints.map(point => point.z));
+
+    const xMin = Math.min(...xValues);
+    const xMax = Math.max(...xValues);
+    const yMin = Math.min(...yValues);
+    const yMax = Math.max(...yValues);
+    const zMin = Math.min(...zValues);
+    const zMax = Math.max(...zValues);
+
+    const xMargin = (xMax - xMin) * padding;
+    const yMargin = (yMax - yMin) * padding;
+    const zMargin = (zMax - zMin) * padding;
+
+    return {
+        xRange: [xMin - xMargin, xMax + xMargin],
+        yRange: [yMin - yMargin, yMax + yMargin],
+        zRange: [zMin - zMargin, zMax + zMargin]
+    };
+}
+
+function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange = null, yRange = null, zRange = null) {
+    const trace = {
+        type: 'mesh3d',
+        x: meshData['x'],
+        y: meshData['y'],
+        z: meshData['z'],
+        i: meshData['i'],
+        j: meshData['j'],
+        k: meshData['k'],
         opacity: 1,
         color: 'cyan',
         flatshading: true
     };
+
+    // Axis line with color
+    const xAxisTrace = {
+        type: 'scatter3d',
+        mode: 'lines',
+        x: [xRange[0], xRange[1]],
+        y: [0, 0],
+        z: [0, 0],
+        line: {
+            color: 'red',
+            width: 5
+        },
+        name: 'Sumbu X',
+    };
+
+    const yAxisTrace = {
+        type: 'scatter3d',
+        mode: 'lines',
+        x: [0, 0],
+        y: [yRange[0], yRange[1]],
+        z: [0, 0],
+        line: {
+            color: 'green',
+            width: 5
+        },
+        name: 'Sumbu Y'
+    };
+
+    const zAxisTrace = {
+        type: 'scatter3d',
+        mode: 'lines',
+        x: [0, 0],
+        y: [0, 0],
+        z: [zRange[0], zRange[1]],
+        line: {
+            color: 'blue',
+            width: 5
+        },
+        name: 'Sumbu Z'
+    };
+
+    const labels = meshData['x'].slice(0, -1).map((_, i) => String.fromCharCode(65 + i)); // Generate labels A, B, C...
+
+    // TODO: decide if to keep
+    // Determine the highest and lowest points
+    const maxZ = Math.max(...meshData['z']);
+    const minZ = Math.min(...meshData['z']);
+
+    const textPositions = meshData['z'].map(z => {
+        if (z === maxZ) return 'top center';
+        if (z === minZ) return 'bottom center';
+        return 'middle center';
+    });
+
+    const labelTrace = {
+        type: 'scatter3d',
+        mode: 'markers+text',
+        x: meshData['x'],
+        y: meshData['y'],
+        z: meshData['z'],
+        text: labels,
+        textposition: textPositions,
+        marker: {
+            size: 5,
+            color: 'black'
+        },
+        showlegend: false
+    };
+
+
+    const layout = {
+        margin: {t: 0, l: 30, r: 30, b: 30},
+        scene: {
+            xaxis: {dtick: 1, range: xRange},
+            yaxis: {dtick: 1, range: yRange},
+            zaxis: {dtick: 1, range: zRange}
+        },
+        legend: {
+            x: 0.1,
+            y: 0.9,
+            traceorder: 'normal',
+            font: {
+                family: 'sans-serif',
+                size: 12,
+                color: '#000'
+            },
+            bgcolor: 'lightgray',
+            bordercolor: 'black',
+            borderwidth: 2
+        }
+    };
+
+    const data = [trace, xAxisTrace, yAxisTrace, zAxisTrace, labelTrace];
+
+    if (addToPlot) {
+        Plotly.addTraces(plotArea, data);
+    } else {
+        Plotly.newPlot(plotArea, data, layout, {responsive: true});
+    }
 }
-
-// Example user input points (feel free to adjust or extend)
-const userPoints = [
-    [1, 1, 1],
-    [-1, -1, 1],
-    [-1, 1, -1],
-    [1, -1, -1]
-];
-
-// Generate mesh data and plot
-const meshData = generateMeshDataFromPoints(userPoints);
-Plotly.newPlot('plot_area', [meshData], {});
