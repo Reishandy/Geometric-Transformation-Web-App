@@ -54,11 +54,11 @@
         </div>
 
         <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
-            <button class="btn w-full">Plot</button>
+            <button id="plot_button" class="btn w-full">Plot</button>
 
             <div id="plot_area" class="w-full"></div>
 
-            <button class="btn w-full">Animasi</button>
+            <button id="animate_button" class="btn w-full">Animasi</button>
         </div>
 
         <div class="p-4 pt-8 rounded-3xl flex flex-col items-center justify-center border-4 border-violet-600 relative">
@@ -185,73 +185,6 @@
     </div>
 </div>
 
-<script>
-    // Buttons event listeners
-    document.querySelectorAll('.back_button').forEach(button => {
-        button.addEventListener('click', () => {
-            window.history.back();
-        });
-    });
-
-    // Points add and remove functionality
-    document.getElementById('point_add_btn').addEventListener('click', addPoint);
-    document.getElementById('point_remove_btn').addEventListener('click', removePoint);
-
-    let pointCount = 3; // Initial points count (to prevent removing all points)
-
-    function addPoint() {
-        pointCount++;
-        const pointDiv = document.createElement('div');
-        pointDiv.id = `point_${String.fromCharCode(97 + pointCount - 1)}`;
-        pointDiv.className = 'grid grid-cols-5 gap-4 w-full items-center';
-
-        pointDiv.innerHTML = `
-        <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">${String.fromCharCode(65 + pointCount - 1)}</h1>
-        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_x" type="number" class="input col-span-2" placeholder="x" value="0">
-        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_y" type="number" class="input col-span-2" placeholder="y" value="0">
-    `;
-
-        const buttonsDiv = document.querySelector('.grid.grid-cols-2.gap-4.items-center');
-        buttonsDiv.parentNode.insertBefore(pointDiv, buttonsDiv);
-    }
-
-    function removePoint() {
-        if (pointCount > 1) {
-            const pointDiv = document.getElementById(`point_${String.fromCharCode(97 + pointCount - 1)}`);
-            pointDiv.parentNode.removeChild(pointDiv);
-            pointCount--;
-        }
-    }
-
-    // Transformation div hidden functionality
-    const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('type');
-
-    const transformationDivs = {
-        'translasi': 'wrapper_translation',
-        'dilatasi': 'wrapper_dilatation',
-        'rotasi': 'wrapper_rotation',
-        'refleksi': 'wrapper_reflection'
-    };
-
-    if (transformationDivs[type]) {
-        document.getElementById(transformationDivs[type]).classList.remove('hidden');
-    }
-
-    // Plot functionality
-    plot_area = document.getElementById('plot_area');
-    Plotly.newPlot(plot_area, [{
-            x: [1, 2, 3, 4, 5],
-            y: [1, 2, 4, 8, 16]
-        }], {
-            margin: {t: 0, l: 30, r: 30, b: 30},
-            dragmode: 'pan',
-            xaxis: {dtick: 1},
-            yaxis: {dtick: 1, scaleanchor: 'x'}
-        },
-        {responsive: true}
-    );
-
-</script>
+<script src="assets/vis2d.js"></script>
 </body>
 </html>
