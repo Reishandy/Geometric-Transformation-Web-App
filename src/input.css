@@ -12,7 +12,7 @@
 }
 
 .text-title-small {
-    @apply text-2xl text-center;
+    @apply text-xl text-center;
 }
 
 .btn {

@@ -1,11 +1,11 @@
-<!doctype html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Visualisasi 2D</title>
+    <title>Visualisasi 3D</title>
 
     <link rel="stylesheet" href="assets/output.css">
     <script src="assets/plotly-2.35.2.min.js" charset="UTF-8"></script>
@@ -24,22 +24,60 @@
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 m-6 rounded-lg w-full space-y-4 lg:space-y-0">
         <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
             <div class="flex flex-col items-center justify-center space-y-4">
-                <div id="point_a" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_a" class="grid grid-cols-7 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">A</h1>
                     <input id="point_a_x" type="number" class="input col-span-2" placeholder="x" value="1">
                     <input id="point_a_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                    <input id="point_a_z" type="number" class="input col-span-2" placeholder="z" value="1">
                 </div>
 
-                <div id="point_b" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_b" class="grid grid-cols-7 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">B</h1>
-                    <input id="point_b_x" type="number" class="input col-span-2" placeholder="x" value="3">
+                    <input id="point_b_x" type="number" class="input col-span-2" placeholder="x" value="1">
                     <input id="point_b_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                    <input id="point_b_z" type="number" class="input col-span-2" placeholder="z" value="-1">
                 </div>
 
-                <div id="point_c" class="grid grid-cols-5 gap-4 w-full items-center">
+                <div id="point_c" class="grid grid-cols-7 gap-4 w-full items-center">
                     <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">C</h1>
-                    <input id="point_c_x" type="number" class="input col-span-2" placeholder="x" value="3">
-                    <input id="point_c_y" type="number" class="input col-span-2" placeholder="y" value="3">
+                    <input id="point_c_x" type="number" class="input col-span-2" placeholder="x" value="1">
+                    <input id="point_c_y" type="number" class="input col-span-2" placeholder="y" value="-1">
+                    <input id="point_c_z" type="number" class="input col-span-2" placeholder="z" value="1">
+                </div>
+
+                <div id="point_d" class="grid grid-cols-7 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">D</h1>
+                    <input id="point_d_x" type="number" class="input col-span-2" placeholder="x" value="1">
+                    <input id="point_d_y" type="number" class="input col-span-2" placeholder="y" value="-1">
+                    <input id="point_d_z" type="number" class="input col-span-2" placeholder="z" value="-1">
+                </div>
+
+                <div id="point_e" class="grid grid-cols-7 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">E</h1>
+                    <input id="point_e_x" type="number" class="input col-span-2" placeholder="x" value="-1">
+                    <input id="point_e_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                    <input id="point_e_z" type="number" class="input col-span-2" placeholder="z" value="1">
+                </div>
+
+                <div id="point_f" class="grid grid-cols-7 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">F</h1>
+                    <input id="point_f_x" type="number" class="input col-span-2" placeholder="x" value="-1">
+                    <input id="point_f_y" type="number" class="input col-span-2" placeholder="y" value="1">
+                    <input id="point_f_z" type="number" class="input col-span-2" placeholder="z" value="-1">
+                </div>
+
+                <div id="point_g" class="grid grid-cols-7 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">G</h1>
+                    <input id="point_g_x" type="number" class="input col-span-2" placeholder="x" value="-1">
+                    <input id="point_g_y" type="number" class="input col-span-2" placeholder="y" value="-1">
+                    <input id="point_g_z" type="number" class="input col-span-2" placeholder="z" value="1">
+                </div>
+
+                <div id="point_h" class="grid grid-cols-7 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">H</h1>
+                    <input id="point_h_x" type="number" class="input col-span-2" placeholder="x" value="-1">
+                    <input id="point_h_y" type="number" class="input col-span-2" placeholder="y" value="-1">
+                    <input id="point_h_z" type="number" class="input col-span-2" placeholder="z" value="-1">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 items-center">
@@ -185,6 +223,6 @@
     </div>
 </div>
 
-<script src="assets/vis2d.js"></script>
+<script src="assets/vis3d.js"></script>
 </body>
 </html>

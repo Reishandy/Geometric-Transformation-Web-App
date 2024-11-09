@@ -642,6 +642,10 @@ video {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -779,10 +783,6 @@ video {
   text-align: justify;
 }
 
-.text-start {
-  text-align: start;
-}
-
 .font-body {
   font-family: Pally, Comic Sans MS, sans-serif;
 }
@@ -854,8 +854,8 @@ video {
 
 .text-title-small {
   text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .btn {

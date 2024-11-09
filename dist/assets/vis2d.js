@@ -9,7 +9,7 @@ document.querySelectorAll('.back_button').forEach(button => {
 });
 
 // Points add and remove functionality
-let pointCount = 3; // Initial points count (to prevent removing all points)
+let pointCount = 3;  // Initial points count (for the letter)
 
 document.getElementById('point_add_btn').addEventListener('click', addPoint);
 document.getElementById('point_remove_btn').addEventListener('click', removePoint);
