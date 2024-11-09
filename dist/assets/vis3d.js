@@ -50,6 +50,10 @@ document.getElementById('plot_button').addEventListener('click', () => {
     plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
 });
 
+document.getElementById('animate_button').addEventListener('click', () => {
+    animateTransformation(originalPoints,originalMesh, transformedPoints, transformedMesh, plot_area);
+});
+
 /*
     ========================
     ====== FUNCTIONS =======
@@ -101,6 +105,7 @@ function getOriginalShapeCoordinates() {
 function calculateTransformedCoordinates(points, type) {
     let k;
 
+    // TODO: Fix rotasi and refleksi
     switch (type) {
         case 'translasi':
             return points.map(point => ({
@@ -118,7 +123,7 @@ function calculateTransformedCoordinates(points, type) {
         case 'rotasi':
             const degree = parseFloat(document.getElementById('value_rotation_degree').value);
             const radian = degree * (Math.PI / 180);
-            const axis = document.querySelector('input[name="axis-radio"]:checked').id;
+            const axis = document.querySelector('input[name="rotation-radio"]:checked').id;
             return points.map(point => {
                 switch (axis) {
                     case 'radio_x_axis':
@@ -142,7 +147,7 @@ function calculateTransformedCoordinates(points, type) {
                 }
             });
         case 'refleksi':
-            const reflectionAxis = document.querySelector('input[name="axis-radio"]:checked').id;
+            const reflectionAxis = document.querySelector('input[name="reflection-radio"]:checked').id;
             return points.map(point => {
                 switch (reflectionAxis) {
                     case 'radio_xy_plane':
@@ -223,7 +228,7 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
         j: meshData['j'],
         k: meshData['k'],
         opacity: 1,
-        color: 'cyan',
+        color: color,
         flatshading: true
     };
 
@@ -318,11 +323,61 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
         }
     };
 
-    const data = [trace, xAxisTrace, yAxisTrace, zAxisTrace, labelTrace];
-
     if (addToPlot) {
+        const data = [trace, labelTrace];
         Plotly.addTraces(plotArea, data);
     } else {
+        const data = [trace, xAxisTrace, yAxisTrace, zAxisTrace, labelTrace];
         Plotly.newPlot(plotArea, data, layout, {responsive: true});
     }
+}
+
+function animateTransformation(originalPoints, originalMesh, transformedPoints, transformedMesh, plotArea) {
+    // Calculate range with padding, so the shape is not on the edge of the plot
+    const padding = 1;
+    const { xRange, yRange , zRange} = calculateRange(originalPoints, transformedPoints, padding);
+
+    // TODO: Fix this, it's not animating at all
+
+    plotShape(originalMesh, plotArea, 'blue', false, xRange, yRange, zRange); // Re-plot the entire thing cause plotly is annoying
+    plotShape(originalMesh, plotArea, 'blue', true, xRange, yRange, zRange); // To keep the original shape while animating
+
+    const frames = [
+        {
+            data: [{
+                type: 'mesh3d',
+                x: originalMesh.x,
+                y: originalMesh.y,
+                z: originalMesh.z,
+                i: originalMesh.i,
+                j: originalMesh.j,
+                k: originalMesh.k,
+                opacity: 1,
+                color: 'red',
+                flatshading: true
+            }]
+        },
+        {
+            data: [{
+                type: 'mesh3d',
+                x: transformedMesh.x,
+                y: transformedMesh.y,
+                z: transformedMesh.z,
+                i: transformedMesh.i,
+                j: transformedMesh.j,
+                k: transformedMesh.k,
+                opacity: 1,
+                color: 'red',
+                flatshading: true
+            }]
+        }
+    ];
+
+    Plotly.animate(plotArea, frames, {
+        transition: { duration: 500 },
+        frame: { duration: 500, redraw: true }
+    }).then(() => {
+        // After animation, add the transformed shape in red
+        plotShape(transformedMesh, plotArea, 'red', true, xRange, yRange, zRange);
+    });
 }
