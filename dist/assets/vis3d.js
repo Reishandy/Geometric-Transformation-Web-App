@@ -37,7 +37,7 @@ let transformedMesh = generateMeshDataFromPoints(transformedPoints)
 // Initial plot with initial range
 const padding = 1;
 const {xRange, yRange, zRange} = calculateRange(originalPoints, [], padding);
-plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
+plotShape(originalMesh, plot_area, 'cyan', false, xRange, yRange, zRange);
 
 // Button event listeners
 document.getElementById('plot_button').addEventListener('click', () => {
@@ -47,7 +47,7 @@ document.getElementById('plot_button').addEventListener('click', () => {
     originalMesh = generateMeshDataFromPoints(originalPoints);
     transformedMesh = generateMeshDataFromPoints(transformedPoints);
 
-    plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
+    plotShape(originalMesh, plot_area, 'cyan', false, xRange, yRange, zRange);
 });
 
 document.getElementById('animate_button').addEventListener('click', () => {
@@ -224,7 +224,7 @@ function calculateRange(originalPoints, transformedPoints = [], padding) {
     };
 }
 
-function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange = null, yRange = null, zRange = null) {
+function plotShape(meshData, plotArea, color = 'cyan', addToPlot = false, xRange = null, yRange = null, zRange = null) {
     const trace = {
         type: 'mesh3d',
         x: meshData['x'],
@@ -343,8 +343,8 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
     const padding = 1;
     const {xRange, yRange, zRange} = calculateRange(originalPoints, transformedPoints, padding);
 
-    plotShape(originalMesh, plotArea, 'blue', false, xRange, yRange, zRange); // Re-plot the entire thing cause plotly is annoying
-    plotShape(originalMesh, plotArea, 'blue', true, xRange, yRange, zRange); // To keep the original shape while animating
+    plotShape(originalMesh, plotArea, 'cyan', false, xRange, yRange, zRange); // Re-plot the entire thing cause plotly is annoying
+    plotShape(originalMesh, plotArea, 'cyan', true, xRange, yRange, zRange); // To keep the original shape while animating
 
     // Define the number of frames for smooth animation
     const numFrames = 60;
@@ -368,7 +368,7 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
                 j: originalMesh.j,
                 k: originalMesh.k,
                 opacity: 1,
-                color: 'red',
+                color: 'orange',
                 flatshading: true
             }]
         });
@@ -378,7 +378,7 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
         transition: {duration: 50},
         frame: {duration: 50, redraw: true}
     }).then(() => {
-        // After animation completes, plot the final transformed shape in red
-        plotShape(transformedMesh, plotArea, 'red', true, xRange, yRange, zRange);
+        // After animation completes, plot the final transformed shape
+        plotShape(transformedMesh, plotArea, 'orange', true, xRange, yRange, zRange);
     });
 }
