@@ -299,7 +299,6 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
         text: labels,
         textposition: textPositions,
         marker: {
-            size: 2,
             color: 'black'
         },
         showlegend: false
