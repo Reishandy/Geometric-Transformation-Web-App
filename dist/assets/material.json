@@ -6,12 +6,12 @@
   },
   "dilatasi": {
     "description": "Dilatasi adalah transformasi yang mengubah ukuran objek (memperbesar atau memperkecil) dengan faktor skala tertentu, tanpa mengubah bentuknya.",
-    "formula": "2D: (x', y') = (k * x, k * y)\n3D: (x', y', z') = (k * x, k * y, k * z)",
+    "formula": "Dilatasi 2D:\nPusat (0,0): (x', y') = (k * x, k * y)\nPusat (a,b): (x', y') = (k * (x - a) + a, k * (y - b) + b)\n\nDilatasi 3D:\nPusat (0,0,0): (x', y', z') = (k * x, k * y, k * z)",
     "example": "2D: Misalkan titik B pada koordinat (3, 2). Jika titik B didilatasi dengan faktor skala k = 2, maka posisi baru titik B, yaitu B', dapat dihitung sebagai berikut:\n\nB'(x', y') = (2 * 3, 2 * 2) = (6, 4)\n\nJadi, titik B setelah dilatasi menjadi B'(6, 4).\n\n3D: Misalkan titik B pada koordinat (3, 2, 4). Jika titik B didilatasi dengan faktor skala k = 2, maka posisi baru titik B, yaitu B', dapat dihitung sebagai berikut:\n\nB'(x', y', z') = (2 * 3, 2 * 2, 2 * 4) = (6, 4, 8)\n\nJadi, titik B setelah dilatasi menjadi B'(6, 4, 8)."
   },
   "rotasi": {
     "description": "Rotasi adalah transformasi yang memutar posisi suatu objek pada bidang atau ruang dengan sudut tertentu terhadap titik pusat atau sumbu tertentu.",
-    "formula": "Rotasi 2D:\n(x', y') = (x * cos(θ) - y * sin(θ), x * sin(θ) + y * cos(θ))\n\nRotasi 3D:\nSumbu x: (x', y', z') = (x, y * cos(θ) - z * sin(θ), y * sin(θ) + z * cos(θ))\nSumbu y: (x', y', z') = (x * cos(θ) + z * sin(θ), y, -x * sin(θ) + z * cos(θ))\nSumbu z: (x', y', z') = (x * cos(θ) - y * sin(θ), x * sin(θ) + y * cos(θ), z)",
+    "formula": "Rotasi 2D:\nPusat (0,0): (x', y') = (x * cos(θ) - y * sin(θ), x * sin(θ) + y * cos(θ))\nPusat (a,b): (x', y') = ((x - a) * cos(θ) - (y - b) * sin(θ) + a, (x - a) * sin(θ) + (y - b) * cos(θ) + b)\n\nRotasi 3D:\nSumbu x: (x', y', z') = (x, y * cos(θ) - z * sin(θ), y * sin(θ) + z * cos(θ))\nSumbu y: (x', y', z') = (x * cos(θ) + z * sin(θ), y, -x * sin(θ) + z * cos(θ))\nSumbu z: (x', y', z') = (x * cos(θ) - y * sin(θ), x * sin(θ) + y * cos(θ), z)",
     "example": "2D: Misalkan titik C pada koordinat (1, 0). Jika titik C diputar sebesar 90° searah jarum jam, maka posisi baru titik C, yaitu C', dapat dihitung sebagai berikut:\n\nC'(x', y') = (1 * cos(90°) - 0 * sin(90°), 1 * sin(90°) + 0 * cos(90°)) = (0, 1)\n\nJadi, titik C setelah rotasi menjadi C'(0, 1).\n\n3D: Misalkan titik C pada koordinat (1, 0, 0). Jika titik C diputar sebesar 90° terhadap sumbu z, maka posisi baru titik C, yaitu C', dapat dihitung sebagai berikut:\n\nC'(x', y', z') = (1 * cos(90°) - 0 * sin(90°), 1 * sin(90°) + 0 * cos(90°), 0) = (0, 1, 0)\n\nJadi, titik C setelah rotasi terhadap sumbu z menjadi C'(0, 1, 0)."
   },
   "refleksi": {
