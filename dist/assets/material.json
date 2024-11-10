@@ -6,7 +6,7 @@
   },
   "dilatasi": {
     "description": "Dilatasi adalah transformasi yang mengubah ukuran objek (memperbesar atau memperkecil) dengan faktor skala tertentu, tanpa mengubah bentuknya.",
-    "formula": "Dilatasi 2D:\nPusat (0,0): (x', y') = (k * x, k * y)\nPusat (a,b): (x', y') = (k * (x - a) + a, k * (y - b) + b)\n\nDilatasi 3D:\nPusat (0,0,0): (x', y', z') = (k * x, k * y, k * z)",
+    "formula": "Dilatasi 2D:\nPusat (0,0): (x', y') = (k * x, k * y)\nPusat (a,b): (x', y') = (k * (x - a) + a, k * (y - b) + b)\n\nDilatasi 3D:\nPusat (0,0,0): (x', y', z') = (k * x, k * y, k * z)\nPusat (a,b): (x', y', z') = (k * (x - a) + a, k * (y - b) + b, k * (z - c) + c)",
     "example": "2D: Misalkan titik B pada koordinat (3, 2). Jika titik B didilatasi dengan faktor skala k = 2, maka posisi baru titik B, yaitu B', dapat dihitung sebagai berikut:\n\nB'(x', y') = (2 * 3, 2 * 2) = (6, 4)\n\nJadi, titik B setelah dilatasi menjadi B'(6, 4).\n\n3D: Misalkan titik B pada koordinat (3, 2, 4). Jika titik B didilatasi dengan faktor skala k = 2, maka posisi baru titik B, yaitu B', dapat dihitung sebagai berikut:\n\nB'(x', y', z') = (2 * 3, 2 * 2, 2 * 4) = (6, 4, 8)\n\nJadi, titik B setelah dilatasi menjadi B'(6, 4, 8)."
   },
   "rotasi": {
