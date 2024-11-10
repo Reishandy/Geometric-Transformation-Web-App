@@ -47,6 +47,9 @@ document.getElementById('plot_button').addEventListener('click', () => {
 });
 
 document.getElementById('animate_button').addEventListener('click', () => {
+    // Recalculate transformed points
+    transformedPoints = calculateTransformedCoordinates(originalPoints, type);
+
     animateTransformation(originalPoints, transformedPoints, plot_area);
 });
 

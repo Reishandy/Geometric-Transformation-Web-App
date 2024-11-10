@@ -44,14 +44,18 @@ document.getElementById('plot_button').addEventListener('click', () => {
     // Recalculate transformed points
     originalPoints = getOriginalShapeCoordinates();
     transformedPoints = calculateTransformedCoordinates(originalPoints, type);
-    originalMesh = generateMeshDataFromPoints(originalPoints)
-    transformedMesh = generateMeshDataFromPoints(transformedPoints)
+    originalMesh = generateMeshDataFromPoints(originalPoints);
+    transformedMesh = generateMeshDataFromPoints(transformedPoints);
 
     plotShape(originalMesh, plot_area, 'blue', false, xRange, yRange, zRange);
 });
 
 document.getElementById('animate_button').addEventListener('click', () => {
-    animateTransformation(originalPoints,originalMesh, transformedPoints, transformedMesh, plot_area);
+    // Recalculate transformed points
+    transformedPoints = calculateTransformedCoordinates(originalPoints, type);
+    transformedMesh = generateMeshDataFromPoints(transformedPoints);
+
+    animateTransformation(originalPoints, originalMesh, transformedPoints, transformedMesh, plot_area);
 });
 
 /*
@@ -125,23 +129,25 @@ function calculateTransformedCoordinates(points, type) {
             const radian = degree * (Math.PI / 180);
             const axis = document.querySelector('input[name="rotation-radio"]:checked').id;
             return points.map(point => {
+                const cosTheta = Math.cos(radian);
+                const sinTheta = Math.sin(radian);
                 switch (axis) {
                     case 'radio_x_axis':
                         return {
                             x: point.x,
-                            y: point.y * Math.cos(radian) - point.z * Math.sin(radian),
-                            z: point.y * Math.sin(radian) + point.z * Math.cos(radian)
+                            y: point.y * cosTheta - point.z * sinTheta,
+                            z: point.y * sinTheta + point.z * cosTheta
                         };
                     case 'radio_y_axis':
                         return {
-                            x: point.x * Math.cos(radian) + point.z * Math.sin(radian),
+                            x: point.x * cosTheta + point.z * sinTheta,
                             y: point.y,
-                            z: -point.x * Math.sin(radian) + point.z * Math.cos(radian)
+                            z: -point.x * sinTheta + point.z * cosTheta
                         };
                     case 'radio_z_axis':
                         return {
-                            x: point.x * Math.cos(radian) - point.y * Math.sin(radian),
-                            y: point.x * Math.sin(radian) + point.y * Math.cos(radian),
+                            x: point.x * cosTheta - point.y * sinTheta,
+                            y: point.x * sinTheta + point.y * cosTheta,
                             z: point.z
                         };
                 }
@@ -274,7 +280,6 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
 
     const labels = meshData['x'].slice(0, -1).map((_, i) => String.fromCharCode(65 + i)); // Generate labels A, B, C...
 
-    // TODO: decide if to keep
     // Determine the highest and lowest points
     const maxZ = Math.max(...meshData['z']);
     const minZ = Math.min(...meshData['z']);
@@ -306,7 +311,8 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
         scene: {
             xaxis: {dtick: 1, range: xRange},
             yaxis: {dtick: 1, range: yRange},
-            zaxis: {dtick: 1, range: zRange}
+            zaxis: {dtick: 1, range: zRange},
+            camera: {eye:{x: 0, y: -1.5, z: 1}}
         },
         legend: {
             x: 0.1,
@@ -335,20 +341,29 @@ function plotShape(meshData, plotArea, color = 'blue', addToPlot = false, xRange
 function animateTransformation(originalPoints, originalMesh, transformedPoints, transformedMesh, plotArea) {
     // Calculate range with padding, so the shape is not on the edge of the plot
     const padding = 1;
-    const { xRange, yRange , zRange} = calculateRange(originalPoints, transformedPoints, padding);
-
-    // TODO: Fix this, it's not animating at all
+    const {xRange, yRange, zRange} = calculateRange(originalPoints, transformedPoints, padding);
 
     plotShape(originalMesh, plotArea, 'blue', false, xRange, yRange, zRange); // Re-plot the entire thing cause plotly is annoying
     plotShape(originalMesh, plotArea, 'blue', true, xRange, yRange, zRange); // To keep the original shape while animating
 
-    const frames = [
-        {
+    // Define the number of frames for smooth animation
+    const numFrames = 60;
+    const frames = [];
+
+    for (let i = 0; i <= numFrames; i++) {
+        const t = i / numFrames;
+
+        const interpolatedX = originalMesh.x.map((x, idx) => x + t * (transformedMesh.x[idx] - x));
+        const interpolatedY = originalMesh.y.map((y, idx) => y + t * (transformedMesh.y[idx] - y));
+        const interpolatedZ = originalMesh.z.map((z, idx) => z + t * (transformedMesh.z[idx] - z));
+
+
+        frames.push({
             data: [{
                 type: 'mesh3d',
-                x: originalMesh.x,
-                y: originalMesh.y,
-                z: originalMesh.z,
+                x: interpolatedX,
+                y: interpolatedY,
+                z: interpolatedZ,
                 i: originalMesh.i,
                 j: originalMesh.j,
                 k: originalMesh.k,
@@ -356,28 +371,14 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
                 color: 'red',
                 flatshading: true
             }]
-        },
-        {
-            data: [{
-                type: 'mesh3d',
-                x: transformedMesh.x,
-                y: transformedMesh.y,
-                z: transformedMesh.z,
-                i: transformedMesh.i,
-                j: transformedMesh.j,
-                k: transformedMesh.k,
-                opacity: 1,
-                color: 'red',
-                flatshading: true
-            }]
-        }
-    ];
+        });
+    }
 
     Plotly.animate(plotArea, frames, {
-        transition: { duration: 500 },
-        frame: { duration: 500, redraw: true }
+        transition: {duration: 50},
+        frame: {duration: 50, redraw: true}
     }).then(() => {
-        // After animation, add the transformed shape in red
+        // After animation completes, plot the final transformed shape in red
         plotShape(transformedMesh, plotArea, 'red', true, xRange, yRange, zRange);
     });
 }
