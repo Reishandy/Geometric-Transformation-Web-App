@@ -47,6 +47,8 @@ document.getElementById('plot_button').addEventListener('click', () => {
     originalMesh = generateMeshDataFromPoints(originalPoints);
     transformedMesh = generateMeshDataFromPoints(transformedPoints);
 
+    console.log(originalPoints)
+
     plotShape(originalMesh, plot_area, 'cyan', false, xRange, yRange, zRange);
 });
 
@@ -75,7 +77,7 @@ function addPoint() {
         <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg col-span-1 text-center">${String.fromCharCode(65 + pointCount - 1)}</h1>
         <input id="point_${String.fromCharCode(97 + pointCount - 1)}_x" type="number" class="input col-span-2" placeholder="x" value="0">
         <input id="point_${String.fromCharCode(97 + pointCount - 1)}_y" type="number" class="input col-span-2" placeholder="y" value="0">
-        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_y" type="number" class="input col-span-2" placeholder="z" value="0">
+        <input id="point_${String.fromCharCode(97 + pointCount - 1)}_z" type="number" class="input col-span-2" placeholder="z" value="0">
     `;
 
     const buttonsDiv = document.querySelector('.grid.grid-cols-2.gap-4.items-center');
@@ -272,7 +274,7 @@ function plotShape(meshData, plotArea, color = 'cyan', addToPlot = false, xRange
         y: [0, 0],
         z: [zRange[0], zRange[1]],
         line: {
-            color: 'blue',
+            color: 'cyan',
             width: 5
         },
         name: 'Sumbu Z'
@@ -378,7 +380,7 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
         transition: {duration: 50},
         frame: {duration: 50, redraw: true}
     }).then(() => {
-        // After animation completes, plot the final transformed shape
+        // After animation completes, plot the final transformed shape in red
         plotShape(transformedMesh, plotArea, 'orange', true, xRange, yRange, zRange);
     });
 }
