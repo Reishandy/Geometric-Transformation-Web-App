@@ -274,7 +274,7 @@ function plotShape(meshData, plotArea, color = 'cyan', addToPlot = false, xRange
         y: [0, 0],
         z: [zRange[0], zRange[1]],
         line: {
-            color: 'cyan',
+            color: 'blue',
             width: 5
         },
         name: 'Sumbu Z'
