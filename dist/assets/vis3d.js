@@ -311,9 +311,9 @@ function plotShape(meshData, plotArea, color = 'cyan', addToPlot = false, xRange
     const layout = {
         margin: {t: 0, l: 30, r: 30, b: 30},
         scene: {
-            xaxis: {dtick: 1, range: xRange},
-            yaxis: {dtick: 1, range: yRange},
-            zaxis: {dtick: 1, range: zRange},
+            xaxis: {dtick: 1, range: xRange, scaleanchor: 'x', scaleratio: 1},
+            yaxis: {dtick: 1, range: yRange, scaleanchor: 'x', scaleratio: 1},
+            zaxis: {dtick: 1, range: zRange, scaleanchor: 'x', scaleratio: 1},
             camera: {eye:{x: 0, y: -1.5, z: 1}}
         },
         legend: {
