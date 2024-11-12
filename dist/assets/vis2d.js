@@ -201,26 +201,55 @@ function animateTransformation(originalPoints, transformedPoints, plotArea) {
         }
     }
 
-    const frames = [
-        {
-            data: [{
-                x: originalPoints.map(point => point.x),
-                y: originalPoints.map(point => point.y),
-                line: { color: 'red' } // Set animation color to red
-            }]
-        },
-        {
-            data: [{
-                x: transformedPoints.map(point => point.x),
-                y: transformedPoints.map(point => point.y),
-                line: { color: 'red' } // Keep color consistent during animation
-            }]
+    // Frame generation for animation
+    let frames = [];
+    let duration = 0;
+
+    if (type === 'rotasi') {
+        const numFrames = 60; // Number of frames for smooth animation
+        duration = 30;
+
+        const degree = parseFloat(document.getElementById('value_rotation_degree').value);
+        const radian = degree * (Math.PI / 180);
+
+        for (let i = 0; i <= numFrames; i++) {
+            const intermediateRadian = (radian / numFrames) * i;
+            const intermediatePoints = originalPoints.map(point => ({
+                x: point.x * Math.cos(intermediateRadian) - point.y * Math.sin(intermediateRadian),
+                y: point.x * Math.sin(intermediateRadian) + point.y * Math.cos(intermediateRadian)
+            }));
+
+            frames.push({
+                data: [{
+                    x: intermediatePoints.map(point => point.x),
+                    y: intermediatePoints.map(point => point.y),
+                    line: { color: 'red' }
+                }]
+            });
         }
-    ];
+    } else {
+        duration = 500;
+        frames = [
+            {
+                data: [{
+                    x: originalPoints.map(point => point.x),
+                    y: originalPoints.map(point => point.y),
+                    line: { color: 'red' } // Set animation color to red
+                }]
+            },
+            {
+                data: [{
+                    x: transformedPoints.map(point => point.x),
+                    y: transformedPoints.map(point => point.y),
+                    line: { color: 'red' } // Keep color consistent during animation
+                }]
+            }
+        ];
+    }
 
     Plotly.animate(plotArea, frames, {
-        transition: { duration: 500 },
-        frame: { duration: 500, redraw: true }
+        transition: { duration: duration },
+        frame: { duration: duration, redraw: true }
     }).then(() => {
         // After animation, add the transformed shape in red
         plotShape(transformedPoints, plotArea, 'red', true);

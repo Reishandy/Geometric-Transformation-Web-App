@@ -342,7 +342,7 @@ function plotShape(meshData, plotArea, color = 'cyan', addToPlot = false, xRange
 
 function animateTransformation(originalPoints, originalMesh, transformedPoints, transformedMesh, plotArea) {
     // Calculate range with padding, so the shape is not on the edge of the plot
-    const padding = 1;
+    const padding = 2;
     const {xRange, yRange, zRange} = calculateRange(originalPoints, transformedPoints, padding);
 
     plotShape(originalMesh, plotArea, 'cyan', false, xRange, yRange, zRange); // Re-plot the entire thing cause plotly is annoying
@@ -352,28 +352,81 @@ function animateTransformation(originalPoints, originalMesh, transformedPoints, 
     const numFrames = 60;
     const frames = [];
 
-    for (let i = 0; i <= numFrames; i++) {
-        const t = i / numFrames;
+    if (type === 'rotasi') {
+        const degree = parseFloat(document.getElementById('value_rotation_degree').value);
+        const radian = degree * (Math.PI / 180);
+        const axis = document.querySelector('input[name="rotation-radio"]:checked').id;
 
-        const interpolatedX = originalMesh.x.map((x, idx) => x + t * (transformedMesh.x[idx] - x));
-        const interpolatedY = originalMesh.y.map((y, idx) => y + t * (transformedMesh.y[idx] - y));
-        const interpolatedZ = originalMesh.z.map((z, idx) => z + t * (transformedMesh.z[idx] - z));
+        for (let i = 0; i <= numFrames; i++) {
+            const t = i / numFrames;
+            const intermediateRadian = radian * t;
+            const cosTheta = Math.cos(intermediateRadian);
+            const sinTheta = Math.sin(intermediateRadian);
+
+            const interpolatedPoints = originalPoints.map(point => {
+                switch (axis) {
+                    case 'radio_x_axis':
+                        return {
+                            x: point.x,
+                            y: point.y * cosTheta - point.z * sinTheta,
+                            z: point.y * sinTheta + point.z * cosTheta
+                        };
+                    case 'radio_y_axis':
+                        return {
+                            x: point.x * cosTheta + point.z * sinTheta,
+                            y: point.y,
+                            z: -point.x * sinTheta + point.z * cosTheta
+                        };
+                    case 'radio_z_axis':
+                        return {
+                            x: point.x * cosTheta - point.y * sinTheta,
+                            y: point.x * sinTheta + point.y * cosTheta,
+                            z: point.z
+                        };
+                }
+            });
+
+            const interpolatedMesh = generateMeshDataFromPoints(interpolatedPoints);
+
+            frames.push({
+                data: [{
+                    type: 'mesh3d',
+                    x: interpolatedMesh.x,
+                    y: interpolatedMesh.y,
+                    z: interpolatedMesh.z,
+                    i: originalMesh.i,
+                    j: originalMesh.j,
+                    k: originalMesh.k,
+                    opacity: 1,
+                    color: 'orange',
+                    flatshading: true
+                }]
+            });
+        }
+    } else {
+        for (let i = 0; i <= numFrames; i++) {
+            const t = i / numFrames;
+
+            const interpolatedX = originalMesh.x.map((x, idx) => x + t * (transformedMesh.x[idx] - x));
+            const interpolatedY = originalMesh.y.map((y, idx) => y + t * (transformedMesh.y[idx] - y));
+            const interpolatedZ = originalMesh.z.map((z, idx) => z + t * (transformedMesh.z[idx] - z));
 
 
-        frames.push({
-            data: [{
-                type: 'mesh3d',
-                x: interpolatedX,
-                y: interpolatedY,
-                z: interpolatedZ,
-                i: originalMesh.i,
-                j: originalMesh.j,
-                k: originalMesh.k,
-                opacity: 1,
-                color: 'orange',
-                flatshading: true
-            }]
-        });
+            frames.push({
+                data: [{
+                    type: 'mesh3d',
+                    x: interpolatedX,
+                    y: interpolatedY,
+                    z: interpolatedZ,
+                    i: originalMesh.i,
+                    j: originalMesh.j,
+                    k: originalMesh.k,
+                    opacity: 1,
+                    color: 'orange',
+                    flatshading: true
+                }]
+            });
+        }
     }
 
     Plotly.animate(plotArea, frames, {
