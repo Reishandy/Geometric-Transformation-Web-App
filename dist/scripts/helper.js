@@ -359,7 +359,7 @@ export function plot3DShape(meshData, plotArea, color = 'cyan', addToPlot = fals
         y: [yRange[0], yRange[1]],
         z: [0, 0],
         line: {
-            color: 'green',
+            color: 'blue',
             width: 5
         },
         name: 'Sumbu Y'
@@ -372,7 +372,7 @@ export function plot3DShape(meshData, plotArea, color = 'cyan', addToPlot = fals
         y: [0, 0],
         z: [zRange[0], zRange[1]],
         line: {
-            color: 'blue',
+            color: 'green',
             width: 5
         },
         name: 'Sumbu Z'
