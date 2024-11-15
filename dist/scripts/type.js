@@ -12,19 +12,20 @@ let results = [];
 // Plot variables
 let originalPoint, transformedPoints, type, values;
 
-// Generate exercises
-for (let i = 0; i < exerciseCount; i++) {
-    const points = generatePoints();
-    const transformation = selectRandomTransformation();
-    exercises.push({points, transformation});
-}
-
-
 // Button event listeners
 document.getElementById('start_button').addEventListener('click', () => {
     document.getElementById('start_screen').classList.add('hidden');
     document.getElementById('exercise_screen').classList.remove('hidden');
 
+    exerciseCount = document.getElementById('exercise_count_input').value;
+    document.getElementById('exercise_count').innerText = `${currentExerciseIndex + 1} / ${exerciseCount}`;
+
+    // Generate exercises
+    for (let i = 0; i < exerciseCount; i++) {
+        const points = generatePoints();
+        const transformation = selectRandomTransformation();
+        exercises.push({points, transformation});
+    }
     displayExercise(currentExerciseIndex);
 });
 
@@ -101,7 +102,7 @@ document.getElementById('reflection_answer_button').addEventListener('click', ()
 // Helper functions
 function displayExercise(index) {
     // Redirection to the results page if all exercises are done
-    if (index === exerciseCount) {
+    if (index === exerciseCount - 1) {
         // TODO: Redirect to the results page
 
         console.log(results);
