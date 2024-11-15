@@ -1,6 +1,6 @@
 /*
     ========================
-    === HELPER FUNCTIONS ===
+    === PLOTLY FUNCTIONS ===
     ========================
  */
 
@@ -85,7 +85,7 @@ export function calculate2DTransformedCoordinates(points, type, values) {
     }
 }
 
-export function plot2DShape(points, plotArea, color = 'blue', addToPlot = false, xRange = null, yRange = null) {
+export function plot2DShape(points, plotArea, color = 'blue', addToPlot, xRange, yRange, autoDtick) {
     const xValues = points.map(point => point.x);
     const yValues = points.map(point => point.y);
     const labels = points.slice(0, -1).map((_, i) => String.fromCharCode(65 + i)); // Generate labels A, B, C...
@@ -105,13 +105,13 @@ export function plot2DShape(points, plotArea, color = 'blue', addToPlot = false,
         margin: {t: 0, l: 30, r: 30, b: 30},
         dragmode: 'pan',
         xaxis: {
-            dtick: 1,
-            range: xRange
+            range: xRange,
+            dtick: autoDtick ? undefined : 1
         },
         yaxis: {
-            dtick: 1,
-            scaleanchor: 'x',
-            range: yRange
+            range: yRange,
+            dtick: autoDtick ? undefined : 1,
+            scaleanchor: 'x'
         }
     };
 
@@ -122,18 +122,18 @@ export function plot2DShape(points, plotArea, color = 'blue', addToPlot = false,
     }
 }
 
-export function animate2DTransformation(originalPoints, transformedPoints, plotArea, type, values) {
+export function animate2DTransformation(originalPoints, transformedPoints, plotArea, type, values, autoDtick = false) {
     // Calculate range with padding, so the shape is not on the edge of the plot
     const padding = 0.5;
     const { xRange, yRange } = calculateRange(originalPoints, transformedPoints, padding);
 
-    plot2DShape(originalPoints, plotArea, 'blue', false, xRange, yRange); // Re-plot the entire thing cause plotly is annoying
-    plot2DShape(originalPoints, plotArea, 'blue', true); // To keep the original shape while animating
+    plot2DShape(originalPoints, plotArea, 'blue', false, xRange, yRange, autoDtick); // Re-plot the entire thing cause plotly is annoying
+    plot2DShape(originalPoints, plotArea, 'blue', true, null, null, autoDtick); // To keep the original shape while animating
 
     // Plot the required line for reflection transformations
     // This is not properly implemented, but it works for the current use case
     if (type === 'refleksi') {
-        const axis = values.axis;
+        const axis = values.reflection.axis;
         switch (axis) {
             case 'line-y-x':
                 plotLine(plotArea, xRange, xRange); // y = x
@@ -142,11 +142,11 @@ export function animate2DTransformation(originalPoints, transformedPoints, plotA
                 plotLine(plotArea, xRange, xRange.map(x => -x)); // y = -x
                 break;
             case 'line-y-k':
-                const kY = values.k;
+                const kY = values.reflection.k;
                 plotLine(plotArea, xRange, Array(xRange.length).fill(kY)); // y = k
                 break;
             case 'line-x-k':
-                const kX = values.k;
+                const kX = values.reflection.k;
                 plotLine(plotArea, Array(yRange.length).fill(kX), yRange); // x = k
                 break;
         }
@@ -160,7 +160,7 @@ export function animate2DTransformation(originalPoints, transformedPoints, plotA
         const numFrames = 60; // Number of frames for smooth animation
         duration = 30;
 
-        const degree = values.degree;
+        const degree = values.rotation.degree;
         const radian = degree * (Math.PI / 180);
 
         for (let i = 0; i <= numFrames; i++) {
@@ -203,7 +203,7 @@ export function animate2DTransformation(originalPoints, transformedPoints, plotA
         frame: { duration: duration, redraw: true }
     }).then(() => {
         // After animation, add the transformed shape in red
-        plot2DShape(transformedPoints, plotArea, 'red', true);
+        plot2DShape(transformedPoints, plotArea, 'red', true, null, null, autoDtick);
     });
 }
 
@@ -437,7 +437,6 @@ export function plot3DShape(meshData, plotArea, color = 'cyan', addToPlot = fals
         Plotly.newPlot(plotArea, data, layout, {responsive: true});
     }
 }
-
 
 export function animate3DTransformation(originalPoints, originalMesh, transformedPoints, transformedMesh, plotArea, type, values) {
     // Calculate range with padding, so the shape is not on the edge of the plot

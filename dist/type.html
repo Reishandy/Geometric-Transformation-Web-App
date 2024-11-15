@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Latihan Tipe</title>
+
+    <link rel="stylesheet" href="assets/output.css">
+    <script src="assets/plotly-2.35.2.min.js" charset="UTF-8"></script>
+</head>
+<body>
+
+<header class="flex items-center justify-between p-4 border-b-4 border-violet-600">
+    <button class="btn back_button">Kembali</button>
+    <h1 class="text-4xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text text-transparent">
+        GEOVIZ
+    </h1>
+    <!--<div class="w-12"></div>-->
+</header>
+
+<div class="flex items-center justify-center min-h-screen">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 m-6 rounded-lg w-full space-y-4 lg:space-y-0">
+        <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
+
+            <p class="text-title text-title-small text-justify">
+                TENTUKAN JENIS TRANSFORMASI DARI ANIMASI BERIKUT
+            </p>
+
+            <div class="float-title float-title-bottom">
+                Soal
+            </div>
+        </div>
+
+        <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
+            <div id="exercise_screen" class="hidden w-full">
+                <p id="exercise_count" class="text-title text-title-small">1 / 10</p>
+
+                <div id="plot_area" class="w-full"></div>
+
+                <button id="replay_button" class="btn w-full">Ulangi</button>
+            </div>
+
+            <div id="start_screen">
+                <div class="grid grid-cols-2 gap-4 w-full items-center">
+                    <h1 class="text-xl font-body font-bold text-violet-600 drop-shadow-lg text-center">Jumlah Soal</h1>
+                    <input id="exercise_count_input" type="number" class="input" placeholder="jumlah soal" value="10">
+                </div>
+
+                <button id="start_button" class="btn w-full mt-4">Mulai</button>
+            </div>
+        </div>
+
+        <div class="p-4 pt-8 rounded-3xl flex flex-col items-center justify-center border-4 border-violet-600 relative">
+            <div class="float-title float-title-top">
+                Jawab
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 w-full">
+                <button id="translation_answer_button" class="btn-outlined w-full">Translasi</button>
+                <button id="dilatation_answer_button" class="btn-outlined w-full">Dilatasi</button>
+                <button id="rotation_answer_button" class="btn-outlined w-full">Rotasi</button>
+                <button id="reflection_answer_button" class="btn-outlined w-full">Refleksi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="scripts/type.js"></script>
+</body>
+</html>

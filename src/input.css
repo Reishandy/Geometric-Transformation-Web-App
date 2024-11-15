@@ -20,6 +20,10 @@
     focus:ring-violet-300 font-display font-bold rounded-xl text-sm sm:text-lg lg:text-xl text-center p-3;
 }
 
+.btn-outlined {
+    @apply p-2 rounded-2xl text-violet-800 bg-transparent border-2 border-violet-800 from-violet-500 to-violet-800 hover:bg-gradient-to-bl hover:text-white;
+}
+
 .btn-hover {
     @apply group-hover:from-violet-600 group-hover:to-violet-900;
 }

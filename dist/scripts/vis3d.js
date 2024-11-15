@@ -1,4 +1,4 @@
-import { calculate3DTransformedCoordinates, generateMeshDataFromPoints, calculateRange, plot3DShape, animate3DTransformation } from "./helper.js";
+import { calculate3DTransformedCoordinates, generateMeshDataFromPoints, calculateRange, plot3DShape, animate3DTransformation } from "./plotly_helper.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get('type');

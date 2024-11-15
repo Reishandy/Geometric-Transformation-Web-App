@@ -1,4 +1,4 @@
-import { calculateRange, plot2DShape, animate2DTransformation, calculate2DTransformedCoordinates } from "./helper.js";
+import { calculateRange, plot2DShape, animate2DTransformation, calculate2DTransformedCoordinates } from "./plotly_helper.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get('type');
@@ -54,9 +54,13 @@ document.getElementById('animate_button').addEventListener('click', () => {
 
     // Get the values for the transformation
     const values = {
-        axis: document.querySelector('input[name="axis-radio"]:checked').value,
-        k: parseFloat(document.getElementById('value_reflection_k').value),
-        degree: parseFloat(document.getElementById('value_rotation_degree').value)
+        reflection: {
+            axis: document.querySelector('input[name="axis-radio"]:checked').value,
+            k: parseFloat(document.getElementById('value_reflection_k').value)
+        },
+        rotation: {
+            degree: parseFloat(document.getElementById('value_rotation_degree').value)
+        }
     }
 
     animate2DTransformation(originalPoints, transformedPoints, plot_area, type, values);

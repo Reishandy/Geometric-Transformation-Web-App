@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Latihan Soal</title>
+
+    <link rel="stylesheet" href="assets/output.css">
+    <script src="assets/plotly-2.35.2.min.js" charset="UTF-8"></script>
+</head>
+<body>
+
+<header class="flex items-center justify-between p-4 border-b-4 border-violet-600">
+    <button class="btn back_button">Kembali</button>
+    <h1 class="text-4xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text text-transparent">
+        GEOVIZ
+    </h1>
+    <!--<div class="w-12"></div>-->
+</header>
+
+<div class="flex items-center justify-center min-h-screen">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 m-6 rounded-lg w-full space-y-4 lg:space-y-0">
+        <div class="p-4 pb-8 rounded-3xl flex items-center justify-center border-4 border-violet-600 relative">
+
+            <div class="float-title float-title-bottom">
+                Soal
+            </div>
+        </div>
+
+        <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
+            <div id="plot_area" class="w-full"></div>
+        </div>
+
+        <div class="p-4 pt-8 rounded-3xl flex flex-col items-center justify-center border-4 border-violet-600 relative">
+            <div class="float-title float-title-top">
+                Jawab
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
