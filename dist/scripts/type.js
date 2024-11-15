@@ -1,6 +1,13 @@
 import {generatePoints, selectRandomTransformation} from "./exercise_helper.js";
 import {animate2DTransformation, calculate2DTransformedCoordinates} from "./plotly_helper.js";
 
+// Back button event listener
+document.querySelectorAll('.back_button').forEach(button => {
+    button.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+});
+
 // Variables
 const plot_area = document.getElementById('plot_area');
 let exerciseCount = 10;
@@ -43,7 +50,6 @@ document.getElementById('translation_answer_button').addEventListener('click', (
         correct: CurrentCorrectAnswer,
         result: answer
     });
-
     updateExerciseCount();
     displayExercise(currentExerciseIndex);
 });
@@ -101,14 +107,8 @@ document.getElementById('reflection_answer_button').addEventListener('click', ()
 
 // Helper functions
 function displayExercise(index) {
-    // Redirection to the results page if all exercises are done
-    if (index === exerciseCount - 1) {
-        // TODO: Redirect to the results page
-
-        console.log(results);
-        // localStorage.setItem('results', JSON.stringify(results));
-        // window.location.href = 'results.html';
-    }
+    // Check if the exercise is done
+    checkDone();
 
     // Get the original points and transformation values
     originalPoint = exercises[index].points;
@@ -125,4 +125,20 @@ function displayExercise(index) {
 function updateExerciseCount() {
     currentExerciseIndex += 1;
     document.getElementById('exercise_count').innerText = `${currentExerciseIndex + 1} / ${exerciseCount}`;
+}
+
+function checkDone() {
+    // Redirection to the results page if all exercises are done
+    if (currentExerciseIndex == exerciseCount) { // Needs to be == instead of === because of the type difference
+        // Save the results to the local storage
+        localStorage.setItem('results', JSON.stringify(results));
+
+        // Clear the variables
+        currentExerciseIndex = 0;
+        exercises = [];
+        results = [];
+
+        // Redirect to the results page, without history
+        window.location.replace('result.html');
+    }
 }

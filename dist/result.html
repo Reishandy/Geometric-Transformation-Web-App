@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hasil</title>
+
+    <link rel="stylesheet" href="assets/output.css">
+    <script src="assets/plotly-2.35.2.min.js" charset="UTF-8"></script>
+</head>
+<body>
+
+<header class="flex items-center justify-between p-4 border-b-4 border-violet-600">
+    <button class="btn back_button">Kembali</button>
+    <h1 class="text-4xl font-bold font-display bg-gradient-to-r from-violet-500 to-violet-800 bg-clip-text text-transparent">
+        GEOVIZ
+    </h1>
+    <!--<div class="w-12"></div>-->
+</header>
+
+<div class="flex items-center justify-center min-h-screen">
+    <div class="flex-col w-full m-4 space-y-4">
+        <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
+            <div>
+                <h1 id="material_title" class="text-title text-title-medium">Hasil</h1>
+                <p class="text-title text-title-small mt-4">
+                    Dengan nilai: <span id="score" class="font-bold text-violet-600"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-col p-4 rounded-3xl flex items-center justify-center border-4 border-violet-600 lg:col-span-3">
+            <h1 id="result_title" class="text-title text-title-medium">Detail</h1>
+            <div id="result_list" class="w-full mt-4">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Back button event listener
+    document.querySelectorAll('.back_button').forEach(button => {
+        button.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    });
+
+    // Load results from localStorage
+    const results = JSON.parse(localStorage.getItem('results')) || [];
+
+    const score = results.filter(result => result.result === 'Benar').length;
+    const percentage = (score / results.length * 100);
+
+    // Display score
+    document.getElementById('score').textContent = `${score} / ${results.length} (${percentage}%)`;
+
+    const resultList = document.getElementById('result_list');
+    results.forEach(result => {
+        const resultItem = document.createElement('div');
+        resultItem.classList.add('p-4', 'border-b-2', 'border-violet-600', 'w-full', 'text-center');
+        resultItem.innerHTML = `
+            <p class="text-xl font-body text-violet-600">Soal ${result.number}</p>
+            <p class="text-lg font-body">Jawaban Anda: ${result.answer}</p>
+            <p class="text-lg font-body">Jawaban Benar: ${result.correct}</p>
+            <p class="text-lg font-body ${result.result === 'Benar' ? 'text-green-600' : 'text-red-600'}">${result.result}</p>
+        `;
+        resultList.appendChild(resultItem);
+    });
+</script>
+</body>
+</html>
